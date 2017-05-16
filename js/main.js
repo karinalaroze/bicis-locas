@@ -6,19 +6,58 @@ function validateForm(){
  var contrasenia = document.getElementById("input-password").value;
  var tag = document.getElementsByTagName('select')[0].selectedIndex;
 
- if (nombre.length==0){
- 	var errorNombre = document.createElement('span');
- 	errorNombre.innerHTML= "No esta correcto";
- 	document.getElementById("nom").appendChild(errorNombre);
- 	return false;
- }
+ if(nombre == null || nombre.length == 0 || /^\s+$/.test(nombre)){
+   var span = document.createElement("span");
+   var referencia= document.getElementById("name");
+   var padre=referencia.parentNode;
+    padre.insertBefore(span,referencia);
+   var texto = document.createTextNode("Debe ingresar su nombre");
+    span.appendChild(texto);
+    return span;
+    }  
+  else {
+   var m = /^[a-zA-Z]*$/;
+    if(!nombre.search(m)) {
+    console.log("letra")
+    m = /[a-z]/g;
+  }    
+   if(!nombre.search(m)){
+   var span = document.createElement("span");
+   var referencia= document.getElementById("name");
+   var padre=referencia.parentNode;
+    padre.insertBefore(span,referencia);
+   var texto = document.createTextNode("La primera letra debe empezar con maýuscula");
+    span.appendChild(texto);
+    return span;
+    }
+  }
 
- if (apellido.length==0){
- 	var errorApellido= document.createElement('span');
- 	errorApellido.innerHTML= "No esta correcto";
- 	document.getElementById("ape").appendChild(errorApellido);
- 	return false;
- }
+ if(apellido == null || apellido.length == 0 || /^\s+$/.test(apellido)) {
+  var span = document.createElement("span");
+  var referencia= document.getElementById("lastname");
+  var padre=referencia.parentNode;
+   padre.insertBefore(span,referencia);
+  var texto = document.createTextNode("Debe ingresar su apellido");
+   span.appendChild(texto);
+  return span;
+  }
+  else {
+  var n = /^[a-zA-Z]*$/;
+  if(!apellido.search(n)) {
+   console.log("letra")
+    n = /[a-z]/g;
+    }    
+  if(!apellido.search(n)){
+   var span = document.createElement("span");
+   var referencia= document.getElementById("lastname");
+   var padre=referencia.parentNode;
+    padre.insertBefore(span,referencia);
+   var texto = document.createTextNode("La primera letra debe empezar con maýuscula");
+    span.appendChild(texto);
+    return span;
+    }
+  }
+ 
 
  if (email.length==0){
  	var errorEmail= document.createElement('span');
@@ -39,4 +78,15 @@ function validateForm(){
  	errorTag.innerHTML= "No esta correcto";
  	document.getElementById("tipobici").appendChild(errorTag);
  	return false;
+}
+
+function validateMayuscula(evento) {
+
+        palabra = window.event.keyCode;
+ 
+        if((palabra>=65 && palabra<=90)||palabra==8||palabra==32){
+             
+        } else {          
+        evento.preventDefault();
+        }
 }
